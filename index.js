@@ -24,9 +24,7 @@ async function run() {
     (pr) => pr.title === "Promote homolog to production"
   );
 
-  console.log({
-    lastPromotedPR,
-  });
+  console.log(lastPromotedPR._links);
 
   // data.map((pr) => console.log(pr.title));
 }
