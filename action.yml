@@ -2,7 +2,7 @@ name: "Count PRs"
 description: "List of received PRs"
 inputs:
   token: # id of input
-    description: "GITHUB_TOKEN"
+    description: "ACCESS_TOKEN"
     required: true
 outputs:
   time: # output will be available to future steps
