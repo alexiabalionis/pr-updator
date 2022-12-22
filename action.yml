@@ -4,10 +4,9 @@ inputs:
   token: # id of input
     description: "GITHUB_TOKEN"
     required: true
-    default: ""
 outputs:
   time: # output will be available to future steps
     description: "List of received PRs"
 runs:
   using: "node16"
-  main: "./index.js"
+  main: "dist/index.js"
