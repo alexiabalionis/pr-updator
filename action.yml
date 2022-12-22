@@ -1,13 +1,13 @@
-name: "Wait"
-description: "Wait a designated number of milliseconds"
+name: "Count PRs"
+description: "List of received PRs"
 inputs:
   token: # id of input
-    description: "number of milliseconds to wait"
+    description: "List of received PRs"
     required: true
     default: ""
 outputs:
   time: # output will be available to future steps
-    description: "The current time after waiting"
+    description: "List of received PRs"
 runs:
   using: "node16"
   main: "dist/index.js"
