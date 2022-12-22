@@ -28,7 +28,7 @@ async function run() {
   //   },
   // });
 
-  console.log(data);
+  console.log(data.length);
 }
 
 run();
