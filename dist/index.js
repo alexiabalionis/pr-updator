@@ -9715,6 +9715,7 @@ async function run() {
   //   },
   // });
 
+  data.map((pr) => console.log(pr.title));
   console.log(data.length);
 }
 

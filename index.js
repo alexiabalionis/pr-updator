@@ -29,7 +29,7 @@ async function run() {
   //   },
   // });
 
-  console.log(data.length);
+  data.map((pr) => console.log(pr.title));
 }
 
 run();
