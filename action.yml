@@ -2,7 +2,7 @@ name: "Count PRs"
 description: "List of received PRs"
 inputs:
   token: # id of input
-    description: "List of received PRs"
+    description: "GITHUB_TOKEN"
     required: true
     default: ""
 outputs:
@@ -10,4 +10,4 @@ outputs:
     description: "List of received PRs"
 runs:
   using: "node16"
-  main: "dist/index.js"
+  main: "./index.js"
