@@ -9699,24 +9699,26 @@ async function run() {
   // You can also pass in additional options as a second parameter to getOctokit
   // const octokit = github.getOctokit(myToken, {userAgent: "MyActionVersion1"});
 
-  const { data } = await octokit.rest.pulls.list({
+  const mainPulls = await octokit.rest.pulls.list({
     owner: "olxbr",
-    repo: "listing",
+    repo: "listing-olx",
     state: "closed",
-    base: "homolog",
+    base: "main",
+    per_page: 10,
+  });
+  const lastPromotedPR = mainPulls.data.find(
+    (pr) => pr.title === "Promote homolog to production"
+  );
+
+  console.log({
+    title: lastPromotedPR.title,
+    date: lastPromotedPR.merged_at,
+    pr_number: lastPromotedPR.number,
+    commits_url: lastPromotedPR.commits_url,
+    commits: lastPromotedPR.commits.href,
   });
 
-  // const { data: pullRequest } = await octokit.rest.pulls.get({
-  //   owner: "octokit",
-  //   repo: "rest.js",
-  //   pull_number: 123,
-  //   mediaType: {
-  //     format: "diff",
-  //   },
-  // });
-
-  data.map((pr) => console.log(pr.title));
-  console.log(data.length);
+  // data.map((pr) => console.log(pr.title));
 }
 
 run();
