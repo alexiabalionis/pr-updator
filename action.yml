@@ -1,13 +1,13 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: "Count PRs"
+description: "Get list of PRs from given repo"
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  token: # id of input
+    description: "number of milliseconds to wait"
     required: true
-    default: '1000'
+    default: ${{ secrets.GITHUB_TOKEN }}
 outputs:
-  time: # output will be available to future steps
-    description: 'The current time after waiting'
+  prs: # output will be available to future steps
+    description: "List of PRs"
 runs:
-  using: 'node16'
-  main: 'dist/index.js'
+  using: "node16"
+  main: "dist/index.js"
