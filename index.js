@@ -16,7 +16,8 @@ async function run() {
   const { data } = await octokit.rest.pulls.list({
     owner: "olxbr",
     repo: "listing",
-    state: "close",
+    state: "closed",
+    base: "homolog",
   });
 
   // const { data: pullRequest } = await octokit.rest.pulls.get({
