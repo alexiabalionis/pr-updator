@@ -9711,11 +9711,7 @@ async function run() {
   );
 
   console.log({
-    title: lastPromotedPR.title,
-    date: lastPromotedPR.merged_at,
-    pr_number: lastPromotedPR.number,
-    commits_url: lastPromotedPR.commits_url,
-    commits: lastPromotedPR.commits,
+    lastPromotedPR,
   });
 
   // data.map((pr) => console.log(pr.title));
