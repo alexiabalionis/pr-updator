@@ -39,8 +39,9 @@ async function run() {
   );
 
   const people = prsToPromote.map((pr) => {
-    console.log(pr.user.login);
+    console.log(pr.url);
   });
+  return people;
 }
 
 run();
