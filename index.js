@@ -19,7 +19,7 @@ async function run() {
     repo: "listing-olx",
     state: "closed",
     base: "main",
-    per_page: 10,
+    per_page: 3,
   });
 
   const lastPromotedPR = mainPulls.data.find(
@@ -38,7 +38,8 @@ async function run() {
     dayjs(pull.merged_at).isAfter(dayjs(lastPromotedPR.merged_at))
   );
 
-  console.log(prsToPromote);
+  const people = prsToPromote.map((pr) => pr.user.login);
+  console.log(people);
 }
 
 run();
