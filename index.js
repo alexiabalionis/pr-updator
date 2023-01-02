@@ -43,7 +43,9 @@ async function run() {
   const titles = prsToPromote.map((pr) => pr.title);
 
   const output = [
-    { p: `*Deploy de \`${feature_branch}\` para \`${base_branch}\`*` },
+    {
+      p: `*Deploy de \`${feature_branch}\` para \`${base_branch} no repo: ${repo}\`*`,
+    },
     { p: "Features" },
     {
       ul: titles,

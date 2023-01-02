@@ -2,7 +2,25 @@
 
 This action compares two branches and returns a changelog with the PR titles and authors.
 
-## Code in Main
+## Usage
+
+You can now consume the action by referencing the v1 branch
+
+```yaml
+- name: Generate branchlog
+  uses: abalioni/branchlog@1.0
+  with:
+    token: ${{ secrets.GITHUB_TOKEN }}
+    repository: branch_name
+    owner: organization_name
+    base_branch: main
+    feature_branch: homolog
+    pr_state: closed
+```
+
+## Contributing
+
+### Code in Main
 
 Install the dependencies
 
@@ -42,20 +60,5 @@ Note: We recommend using the `--license` option for ncc, which will create a lic
 Your action is now published! :rocket:
 
 See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-
-## Usage
-
-You can now consume the action by referencing the v1 branch
-
-```yaml
-uses: actions/javascript-action@v1
-with:
-  token: ${{ secrets.ACCESS_TOKEN }}
-  repository: branch_name
-  owner: organization_name
-  base_branch: main
-  feature_branch: homolog
-  pr_state: closed
-```
 
 See the [actions tab](https://github.com/actions/javascript-action/actions) for runs of this action! :rocket:
