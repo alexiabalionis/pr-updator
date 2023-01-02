@@ -5,7 +5,7 @@ inputs:
     description: "ACCESS_TOKEN"
     required: true
 outputs:
-  time: # output will be available to future steps
+  message: # output will be available to future steps
     description: "List of received PRs"
 runs:
   using: "node16"
