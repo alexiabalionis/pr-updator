@@ -37,7 +37,10 @@ async function run() {
   const prsToPromote = homologPulls.data.filter((pull) =>
     dayjs(pull.merged_at).isAfter(dayjs(lastPromotedPR.merged_at))
   );
-  const people = prsToPromote.map((pr) => pr.user.login);
+  const people = prsToPromote.map((pr) => ({
+    author: pr.user.login,
+    title: pr.title,
+  }));
   console.log(people);
 }
 
