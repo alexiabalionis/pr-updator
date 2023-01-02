@@ -10165,17 +10165,14 @@ async function run() {
     { p: "*Deploy de `homolog` para `main`*" },
     { p: "Features" },
     {
-      ul: `\`\`\`${titles}\`\`\``,
+      ul: titles,
     },
-    { p: "Autores" },
+    { p: "*Necessária a aprovação de:*" },
     {
       ul: people,
     },
     {
-      ol: [
-        "Teste o seu código em homolog",
-        "Aprove o PR se tudo estiver como o esperado",
-      ],
+      p: "Teste o seu código em homolog e aprove o PR se tudo estiver como o esperado",
     },
   ];
 
