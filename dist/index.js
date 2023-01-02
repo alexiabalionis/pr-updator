@@ -10174,6 +10174,7 @@ async function run() {
     { h3: "Como prosseguir?" },
     { ol: ["Teste o seu código em homolog", "Aprove o PR de promote"] },
   ];
+  core.setOutput(json2md(output));
   return json2md(output);
 }
 
