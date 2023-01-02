@@ -42,18 +42,19 @@ async function run() {
   const titles = prsToPromote.map((pr) => pr.title);
 
   const output = [
-    { h1: "Promote `homolog` to `main`" },
-    { h2: "Features" },
+    { p: "*Promote `homolog` to `main`*" },
+    { p: "Features" },
     {
       ul: titles,
     },
-    { h2: "Autores" },
+    { p: "Autores" },
     {
       ul: people,
     },
-    { h3: "Como prosseguir?" },
+    { p: "Como prosseguir?" },
     { ol: ["Teste o seu código em homolog", "Aprove o PR de promote"] },
   ];
+
   core.setOutput("message", json2md(output));
   return json2md(output);
 }
