@@ -1,6 +1,7 @@
 const github = require("@actions/github");
 const core = require("@actions/core");
 const dayjs = require("dayjs");
+const json2md = require("json2md");
 
 async function run() {
   // This should be a token with access to your repository scoped in as a secret.
@@ -41,7 +42,17 @@ async function run() {
     author: pr.user.login,
     title: pr.title,
   }));
-  console.log(people);
+
+  const output = [
+    { h1: "Promote `homolog` to `main`" },
+    { h2: "Features" },
+    {
+      ul: people,
+    },
+    { h2: "Como prosseguir?" },
+    { ol: ["Teste o seu código em homolog", "Aprove o PR de promote"] },
+  ];
+  console.log(json2md(output));
 }
 
 run();
