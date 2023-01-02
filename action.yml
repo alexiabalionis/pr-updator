@@ -1,7 +1,9 @@
 name: "Branchlog"
 description: "Creates a changelog between two branches"
 author: "Aléxia Balionis"
-icon: "book-open"
+branding:
+  icon: "git-merge"
+  color: "purple"
 inputs:
   token: # id of input
     description: "Access token"
