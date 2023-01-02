@@ -1,5 +1,5 @@
-name: "Count PRs"
-description: "List of received PRs"
+name: "Branchlog"
+description: "Creates a changelog between two branches"
 inputs:
   token: # id of input
     description: "Access token"
@@ -16,11 +16,11 @@ inputs:
     default: "main"
     required: true
   base_branch_pr_title:
-    description: "Action will look into base branch for a specific PR title"
+    description: "Action will get all PRs merged after this one"
     default: "Promote homolog to production"
     required: true
   feature_branch:
-    description: "Branch that contains feature requests to be merged"
+    description: "Branch that contains feature requests to be merged. ie: homolog"
     default: "homolog"
     required: true
   pr_state:
