@@ -54,7 +54,7 @@ async function run() {
     { h3: "Como prosseguir?" },
     { ol: ["Teste o seu código em homolog", "Aprove o PR de promote"] },
   ];
-  core.setOutput(JSON.stringify(json2md(output)));
+  core.setOutput("message", json2md(output));
   return json2md(output);
 }
 

@@ -28,10 +28,9 @@ jobs:
           token: ${{ secrets.ACCESS_TOKEN }}
 
       - name: Echo
-        id: tag_version
         shell: bash -ex {0}
         run: |
-          echo "${{ steps.get_authors.outputs.message }}"
+          echo "${{ steps.get_authors.outputs.* }}"
 
       - name: Slack Release notification
         env:
