@@ -1,4 +1,5 @@
 node_modules/
+workflows/test.yml
 
 # Editors
 .vscode/
