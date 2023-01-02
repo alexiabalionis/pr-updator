@@ -1,6 +1,7 @@
 name: "Branchlog"
 description: "Creates a changelog between two branches"
-author: "Aléxia Balioniss"
+author: "Aléxia Balionis"
+icon: "book-open"
 inputs:
   token: # id of input
     description: "Access token"
