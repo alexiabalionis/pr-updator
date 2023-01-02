@@ -2,7 +2,30 @@ name: "Count PRs"
 description: "List of received PRs"
 inputs:
   token: # id of input
-    description: "ACCESS_TOKEN"
+    description: "Access token"
+    required: true
+  repository:
+    description: "Name of the repo to search into"
+    required: true
+  owner:
+    description: "Name of the organization the repo belongs to"
+    default: "olxbr"
+    required: true
+  base_branch:
+    description: "Branch which the PR is going into. ie: main"
+    default: "main"
+    required: true
+  base_branch_pr_title:
+    description: "Action will look into base branch for a specific PR title"
+    default: "Promote homolog to production"
+    required: true
+  feature_branch:
+    description: "Branch that contains feature requests to be merged"
+    default: "homolog"
+    required: true
+  pr_state:
+    description: "Search for PRs in which state: open, closed, merged"
+    default: "closed"
     required: true
 outputs:
   message: # output will be available to future steps

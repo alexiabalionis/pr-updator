@@ -22,19 +22,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Get message
-        id: get_authors
+        id: get_prs
         uses: ./
         with:
           token: ${{ secrets.ACCESS_TOKEN }}
-
-      - name: Echo
-        shell: bash -ex {0}
-        run: |
-          echo "${{ steps.get_authors.outputs.* }}"
+          repository: listing-olx
+          owner: olxbr
+          base_branch: main
+          feature_branch: homolog
+          pr_state: closed
 
       - name: Slack Release notification
         env:
-          MESSAGE: ${{ steps.get_authors.outputs.message }}
+          MESSAGE: ${{ steps.get_prs.outputs.message }}
           SLACK_WEBHOOK: ${{ secrets.SLACK_DEPLOYS_WEBHOOK }}
         uses: Ilshidur/action-slack@2.0.2
         with:

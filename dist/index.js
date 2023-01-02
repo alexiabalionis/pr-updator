@@ -10124,34 +10124,35 @@ const dayjs = __nccwpck_require__(7401);
 const json2md = __nccwpck_require__(8158);
 
 async function run() {
-  // This should be a token with access to your repository scoped in as a secret.
-  // The YML workflow will need to set myToken with the GitHub Secret Token
-  // myToken: ${{ secrets.GITHUB_TOKEN }}
-  // https://help.github.com/en/actions/automating-your-workflow-with-github-actions/authenticating-with-the-github_token#about-the-github_token-secret
   const token = core.getInput("token", { required: true });
+  const repo = core.getInput("repository", { required: true });
+  const owner = core.getInput("owner", { required: true });
+  const base_branch = core.getInput("base_branch", { required: true });
+  const base_branch_pr_title = core.getInput("base_branch_pr_title", {
+    required: true,
+  });
+  const feature_branch = core.getInput("feature_branch", { required: true });
+  const pr_state = core.getInput("pr_state", { required: true });
 
   const octokit = new github.getOctokit(token);
 
-  // You can also pass in additional options as a second parameter to getOctokit
-  // const octokit = github.getOctokit(myToken, {userAgent: "MyActionVersion1"});
-
   const mainPulls = await octokit.rest.pulls.list({
-    owner: "olxbr",
-    repo: "listing-olx",
-    state: "closed",
-    base: "main",
+    owner,
+    repo,
+    state: pr_state,
+    base: base_branch,
     per_page: 3,
   });
 
   const lastPromotedPR = mainPulls.data.find(
-    (pr) => pr.title === "Promote homolog to production"
+    (pr) => pr.title === base_branch_pr_title
   );
 
   const homologPulls = await octokit.rest.pulls.list({
-    owner: "olxbr",
-    repo: "listing-olx",
-    state: "closed",
-    base: "homolog",
+    owner,
+    repo,
+    state: pr_state,
+    base: feature_branch,
     per_page: 10,
   });
 
@@ -10162,7 +10163,7 @@ async function run() {
   const titles = prsToPromote.map((pr) => pr.title);
 
   const output = [
-    { p: "*Deploy de `homolog` para `main`*" },
+    { p: `*Deploy de \`${feature_branch}\` para \`${base_branch}\`*` },
     { p: "Features" },
     {
       ul: titles,
