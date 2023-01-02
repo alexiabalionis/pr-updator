@@ -10158,10 +10158,9 @@ async function run() {
   const prsToPromote = homologPulls.data.filter((pull) =>
     dayjs(pull.merged_at).isAfter(dayjs(lastPromotedPR.merged_at))
   );
-  const people = prsToPromote.map((pr) => ({
-    author: pr.user.login,
-    title: pr.title,
-  }));
+  const people = prsToPromote.map((pr) => {
+    return { author: pr.user.login, title: pr.title };
+  });
 
   const output = [
     { h1: "Promote `homolog` to `main`" },
