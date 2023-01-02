@@ -21,15 +21,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Get authors
+      - name: Get message
         id: get_authors
         uses: ./
         with:
           token: ${{ secrets.ACCESS_TOKEN }}
+
+      - name: Echo
+        id: tag_version
+        shell: bash -ex {0}
+        run: |
+          echo "${{ steps.get_authors.outputs.message }}"
+
       - name: Slack Release notification
         env:
           MESSAGE: ${{ steps.get_authors.outputs.message }}
-          SLACK_WEBHOOK: https://hooks.slack.com/services/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
+          SLACK_WEBHOOK: ${{ secrets.SLACK_DEPLOYS_WEBHOOK }}
         uses: Ilshidur/action-slack@2.0.2
         with:
           args: |-
