@@ -10158,17 +10158,20 @@ async function run() {
   const prsToPromote = homologPulls.data.filter((pull) =>
     dayjs(pull.merged_at).isAfter(dayjs(lastPromotedPR.merged_at))
   );
-  const people = prsToPromote.forEach((pr) => {
-    return { author: pr.user.login, title: pr.title };
-  });
+  const people = prsToPromote.forEach((pr) => pr.user.login);
+  const titles = prsToPromote.forEach((pr) => pr.title);
 
   const output = [
     { h1: "Promote `homolog` to `main`" },
     { h2: "Features" },
     {
+      ul: titles,
+    },
+    { h2: "Autores" },
+    {
       ul: people,
     },
-    { h2: "Como prosseguir?" },
+    { h3: "Como prosseguir?" },
     { ol: ["Teste o seu código em homolog", "Aprove o PR de promote"] },
   ];
   console.log(json2md(output));
