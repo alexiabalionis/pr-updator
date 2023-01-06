@@ -10159,36 +10159,18 @@ async function run() {
   const prsToPromote = homologPulls.data.filter((pull) =>
     dayjs(pull.merged_at).isAfter(dayjs(lastPromotedPR.merged_at))
   );
-  const people = prsToPromote.map(async (pr) => {
-    let name;
-    try {
-      const userAPIData = await octokit.request(
-        `GET /users/${pr.user.login}`,
-        {}
-      );
-      if (
-        userAPIData != null &&
-        userAPIData.data != null &&
-        userAPIData.data.name != null &&
-        userAPIData.data.name != ""
-      ) {
-        name = userAPIData.data.name;
-      }
-      return name;
-    } catch (error) {
-      console.log("[!] " + error.message);
-      return pr.user.login;
-    }
+  const people = prsToPromote.map((pr) => {
+    pr.user.login;
   });
   const titles = prsToPromote.map((pr) => pr.title);
 
   const output = [
     {
-      p: `*Deploy de \`${feature_branch}\` para \`${base_branch}\` no repo: ${repo}\`*`,
+      p: `*Deploy de \`${feature_branch}\` para \`${base_branch}\` no repo: ${repo}*`,
     },
-    { p: "Features" },
+    { p: "*Features*" },
     {
-      ul: titles,
+      ul: `\`\`\`${titles}\`\`\``,
     },
     { p: "*Necessária a aprovação de:*" },
     {
