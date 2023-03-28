@@ -34,6 +34,10 @@ inputs:
 outputs:
   message: # output will be available to future steps
     description: "List of received PRs"
+  changelog:
+    description: "list of PRs titles"
+  authors:
+    description: "authors of PRs"
 runs:
   using: "node16"
   main: "dist/index.js"

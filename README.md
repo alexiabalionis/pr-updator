@@ -8,7 +8,7 @@ You can now consume the action by referencing the v1 branch
 
 ```yaml
 - name: Generate branchlog
-  uses: abalioni/branchlog@1.0
+  uses: alexiabalionis/branchlog@1.1.1
   with:
     token: ${{ secrets.GITHUB_TOKEN }}
     repository: branch_name
