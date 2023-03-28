@@ -39,8 +39,8 @@ async function run() {
   const prsToPromote = homologPulls.data.filter((pull) =>
     dayjs(pull.merged_at).isAfter(dayjs(lastPromotedPR.merged_at))
   );
-  const people = prsToPromote.map((pr) => pr.user.login);
-  const titles = prsToPromote.map((pr) => pr.title);
+  const authors = prsToPromote.map((pr) => pr.user.login);
+  const changelog = prsToPromote.map((pr) => pr.title);
 
   const output = [
     {
@@ -48,15 +48,17 @@ async function run() {
     },
     { p: "*Features*" },
     {
-      ul: titles,
+      ul: changelog,
     },
     { p: "*Necessária a aprovação de:*" },
     {
-      ul: people,
+      ul: authors,
     },
   ];
 
   core.setOutput("message", json2md(output));
+  core.setOutput("changelog", changelog);
+  core.setOutput("authors", authors);
   return json2md(output);
 }
 
