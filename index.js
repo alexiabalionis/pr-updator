@@ -59,7 +59,7 @@ async function run() {
   core.setOutput("message", json2md(output));
   core.setOutput("changelog", changelog);
   core.setOutput("authors", authors);
-  return json2md(output);
+  return { output: json2md(output), authors, changelog };
 }
 
 run();
