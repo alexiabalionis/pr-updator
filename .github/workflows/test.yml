@@ -26,7 +26,7 @@ jobs:
         with:
           source_branch: "test"
           destination_branch: "main"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GH_TOKEN }}
           pr_title: Promote homolog to production
           pr_body: teste
 
@@ -34,7 +34,7 @@ jobs:
         id: get_prs
         uses: ./
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GH_TOKEN }}
           destination_branch: main
           pr_title: Promote homolog to production taylors version
           pr_body: update
