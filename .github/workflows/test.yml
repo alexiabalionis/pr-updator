@@ -30,12 +30,3 @@ jobs:
           base_branch: main
           feature_branch: homolog
           pr_state: closed
-
-      - name: Slack Release notification
-        env:
-          MESSAGE: ${{ steps.get_prs.outputs.message }}
-          SLACK_WEBHOOK: ${{ secrets.SLACK_DEPLOYS_WEBHOOK }}
-        uses: Ilshidur/action-slack@2.1.0
-        with:
-          args: |-
-            {{ MESSAGE }}
