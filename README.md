@@ -7,15 +7,13 @@ This action compares two branches and returns a changelog with the PR titles and
 You can now consume the action by referencing the v1 branch
 
 ```yaml
-- name: Generate branchlog
-  uses: alexiabalionis/branchlog@1.1.1
+- name: Update PR details
+  uses: alexiabalionis/pr-updator@1.0.0
   with:
-    token: ${{ secrets.GITHUB_TOKEN }}
-    repository: branch_name
-    owner: organization_name
-    base_branch: main
-    feature_branch: homolog
-    pr_state: closed
+    github_token: ${{ secrets.GITHUB_TOKEN }}
+    destination_branch: main
+    pr_body: ${{ steps.branchlog.outputs.changelog }}
+    pr_reviewers: ${{ steps.branchlog.outputs.authors }}
 ```
 
 ## Contributing
