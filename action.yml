@@ -3,7 +3,7 @@ description: "GitHub Action that updates the pull request description and title"
 author: "Alexia Balionis"
 runs:
   main: "index.js",
-  pre: 'deps.js'
+  pre: "deps.js"
 inputs:
   github_token:
     description: "The GITHUB_TOKEN secret"

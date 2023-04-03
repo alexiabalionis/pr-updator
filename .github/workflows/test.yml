@@ -20,13 +20,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Create Pull Request
+        uses: repo-sync/pull-request@v2
+        id: open-pr
+        with:
+          source_branch: "test"
+          destination_branch: "main"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          pr_title: Promote homolog to production
+          pr_body: teste
+
       - name: Get message
         id: get_prs
         uses: ./
         with:
-          token: ${{ secrets.ACCESS_TOKEN }}
-          repository: my_repo
-          owner: myorg
-          base_branch: main
-          feature_branch: homolog
-          pr_state: closed
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          destination_branch: main
+          pr_title: Promote homolog to production taylors version
+          pr_body: update
+          pr_reviewers: "alexiabalionis"
