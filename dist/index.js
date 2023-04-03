@@ -4525,13 +4525,6 @@ function removeHook(state, name, method) {
 
 /***/ }),
 
-/***/ 7401:
-/***/ (function(module) {
-
-!function(t,e){ true?module.exports=e():0}(this,(function(){"use strict";var t=1e3,e=6e4,n=36e5,r="millisecond",i="second",s="minute",u="hour",a="day",o="week",f="month",h="quarter",c="year",d="date",l="Invalid Date",$=/^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/,y=/\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,M={name:"en",weekdays:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_"),ordinal:function(t){var e=["th","st","nd","rd"],n=t%100;return"["+t+(e[(n-20)%10]||e[n]||e[0])+"]"}},m=function(t,e,n){var r=String(t);return!r||r.length>=e?t:""+Array(e+1-r.length).join(n)+t},v={s:m,z:function(t){var e=-t.utcOffset(),n=Math.abs(e),r=Math.floor(n/60),i=n%60;return(e<=0?"+":"-")+m(r,2,"0")+":"+m(i,2,"0")},m:function t(e,n){if(e.date()<n.date())return-t(n,e);var r=12*(n.year()-e.year())+(n.month()-e.month()),i=e.clone().add(r,f),s=n-i<0,u=e.clone().add(r+(s?-1:1),f);return+(-(r+(n-i)/(s?i-u:u-i))||0)},a:function(t){return t<0?Math.ceil(t)||0:Math.floor(t)},p:function(t){return{M:f,y:c,w:o,d:a,D:d,h:u,m:s,s:i,ms:r,Q:h}[t]||String(t||"").toLowerCase().replace(/s$/,"")},u:function(t){return void 0===t}},g="en",D={};D[g]=M;var p=function(t){return t instanceof _},S=function t(e,n,r){var i;if(!e)return g;if("string"==typeof e){var s=e.toLowerCase();D[s]&&(i=s),n&&(D[s]=n,i=s);var u=e.split("-");if(!i&&u.length>1)return t(u[0])}else{var a=e.name;D[a]=e,i=a}return!r&&i&&(g=i),i||!r&&g},w=function(t,e){if(p(t))return t.clone();var n="object"==typeof e?e:{};return n.date=t,n.args=arguments,new _(n)},O=v;O.l=S,O.i=p,O.w=function(t,e){return w(t,{locale:e.$L,utc:e.$u,x:e.$x,$offset:e.$offset})};var _=function(){function M(t){this.$L=S(t.locale,null,!0),this.parse(t)}var m=M.prototype;return m.parse=function(t){this.$d=function(t){var e=t.date,n=t.utc;if(null===e)return new Date(NaN);if(O.u(e))return new Date;if(e instanceof Date)return new Date(e);if("string"==typeof e&&!/Z$/i.test(e)){var r=e.match($);if(r){var i=r[2]-1||0,s=(r[7]||"0").substring(0,3);return n?new Date(Date.UTC(r[1],i,r[3]||1,r[4]||0,r[5]||0,r[6]||0,s)):new Date(r[1],i,r[3]||1,r[4]||0,r[5]||0,r[6]||0,s)}}return new Date(e)}(t),this.$x=t.x||{},this.init()},m.init=function(){var t=this.$d;this.$y=t.getFullYear(),this.$M=t.getMonth(),this.$D=t.getDate(),this.$W=t.getDay(),this.$H=t.getHours(),this.$m=t.getMinutes(),this.$s=t.getSeconds(),this.$ms=t.getMilliseconds()},m.$utils=function(){return O},m.isValid=function(){return!(this.$d.toString()===l)},m.isSame=function(t,e){var n=w(t);return this.startOf(e)<=n&&n<=this.endOf(e)},m.isAfter=function(t,e){return w(t)<this.startOf(e)},m.isBefore=function(t,e){return this.endOf(e)<w(t)},m.$g=function(t,e,n){return O.u(t)?this[e]:this.set(n,t)},m.unix=function(){return Math.floor(this.valueOf()/1e3)},m.valueOf=function(){return this.$d.getTime()},m.startOf=function(t,e){var n=this,r=!!O.u(e)||e,h=O.p(t),l=function(t,e){var i=O.w(n.$u?Date.UTC(n.$y,e,t):new Date(n.$y,e,t),n);return r?i:i.endOf(a)},$=function(t,e){return O.w(n.toDate()[t].apply(n.toDate("s"),(r?[0,0,0,0]:[23,59,59,999]).slice(e)),n)},y=this.$W,M=this.$M,m=this.$D,v="set"+(this.$u?"UTC":"");switch(h){case c:return r?l(1,0):l(31,11);case f:return r?l(1,M):l(0,M+1);case o:var g=this.$locale().weekStart||0,D=(y<g?y+7:y)-g;return l(r?m-D:m+(6-D),M);case a:case d:return $(v+"Hours",0);case u:return $(v+"Minutes",1);case s:return $(v+"Seconds",2);case i:return $(v+"Milliseconds",3);default:return this.clone()}},m.endOf=function(t){return this.startOf(t,!1)},m.$set=function(t,e){var n,o=O.p(t),h="set"+(this.$u?"UTC":""),l=(n={},n[a]=h+"Date",n[d]=h+"Date",n[f]=h+"Month",n[c]=h+"FullYear",n[u]=h+"Hours",n[s]=h+"Minutes",n[i]=h+"Seconds",n[r]=h+"Milliseconds",n)[o],$=o===a?this.$D+(e-this.$W):e;if(o===f||o===c){var y=this.clone().set(d,1);y.$d[l]($),y.init(),this.$d=y.set(d,Math.min(this.$D,y.daysInMonth())).$d}else l&&this.$d[l]($);return this.init(),this},m.set=function(t,e){return this.clone().$set(t,e)},m.get=function(t){return this[O.p(t)]()},m.add=function(r,h){var d,l=this;r=Number(r);var $=O.p(h),y=function(t){var e=w(l);return O.w(e.date(e.date()+Math.round(t*r)),l)};if($===f)return this.set(f,this.$M+r);if($===c)return this.set(c,this.$y+r);if($===a)return y(1);if($===o)return y(7);var M=(d={},d[s]=e,d[u]=n,d[i]=t,d)[$]||1,m=this.$d.getTime()+r*M;return O.w(m,this)},m.subtract=function(t,e){return this.add(-1*t,e)},m.format=function(t){var e=this,n=this.$locale();if(!this.isValid())return n.invalidDate||l;var r=t||"YYYY-MM-DDTHH:mm:ssZ",i=O.z(this),s=this.$H,u=this.$m,a=this.$M,o=n.weekdays,f=n.months,h=function(t,n,i,s){return t&&(t[n]||t(e,r))||i[n].slice(0,s)},c=function(t){return O.s(s%12||12,t,"0")},d=n.meridiem||function(t,e,n){var r=t<12?"AM":"PM";return n?r.toLowerCase():r},$={YY:String(this.$y).slice(-2),YYYY:this.$y,M:a+1,MM:O.s(a+1,2,"0"),MMM:h(n.monthsShort,a,f,3),MMMM:h(f,a),D:this.$D,DD:O.s(this.$D,2,"0"),d:String(this.$W),dd:h(n.weekdaysMin,this.$W,o,2),ddd:h(n.weekdaysShort,this.$W,o,3),dddd:o[this.$W],H:String(s),HH:O.s(s,2,"0"),h:c(1),hh:c(2),a:d(s,u,!0),A:d(s,u,!1),m:String(u),mm:O.s(u,2,"0"),s:String(this.$s),ss:O.s(this.$s,2,"0"),SSS:O.s(this.$ms,3,"0"),Z:i};return r.replace(y,(function(t,e){return e||$[t]||i.replace(":","")}))},m.utcOffset=function(){return 15*-Math.round(this.$d.getTimezoneOffset()/15)},m.diff=function(r,d,l){var $,y=O.p(d),M=w(r),m=(M.utcOffset()-this.utcOffset())*e,v=this-M,g=O.m(this,M);return g=($={},$[c]=g/12,$[f]=g,$[h]=g/3,$[o]=(v-m)/6048e5,$[a]=(v-m)/864e5,$[u]=v/n,$[s]=v/e,$[i]=v/t,$)[y]||v,l?g:O.a(g)},m.daysInMonth=function(){return this.endOf(f).$D},m.$locale=function(){return D[this.$L]},m.locale=function(t,e){if(!t)return this.$L;var n=this.clone(),r=S(t,e,!0);return r&&(n.$L=r),n},m.clone=function(){return O.w(this.$d,this)},m.toDate=function(){return new Date(this.valueOf())},m.toJSON=function(){return this.isValid()?this.toISOString():null},m.toISOString=function(){return this.$d.toISOString()},m.toString=function(){return this.$d.toUTCString()},M}(),T=_.prototype;return w.prototype=T,[["$ms",r],["$s",i],["$m",s],["$H",u],["$W",a],["$M",f],["$y",c],["$D",d]].forEach((function(t){T[t[1]]=function(e){return this.$g(e,t[0],t[1])}})),w.extend=function(t,e){return t.$i||(t(e,_,w),t.$i=!0),w},w.locale=S,w.isDayjs=p,w.unix=function(t){return w(1e3*t)},w.en=D[g],w.Ls=D,w.p={},w}));
-
-/***/ }),
-
 /***/ 8932:
 /***/ ((__unused_webpack_module, exports) => {
 
@@ -4557,32 +4550,6 @@ class Deprecation extends Error {
 
 exports.Deprecation = Deprecation;
 
-
-/***/ }),
-
-/***/ 393:
-/***/ ((module) => {
-
-"use strict";
-
-
-/**
- * indento
- * Indents the input string.
- *
- * @name indento
- * @function
- * @param {String} input The input string.
- * @param {Number} width The indent width.
- * @param {String} char The character to use for indentation (default: `" "`).
- * @return {String} The indented string.
- */
-function indento(input, width, char) {
-  char = typeof char !== "string" ? " " : char;
-  return String(input).replace(/^/gm, char.repeat(width));
-}
-
-module.exports = indento;
 
 /***/ }),
 
@@ -4629,407 +4596,6 @@ function isPlainObject(o) {
 
 exports.isPlainObject = isPlainObject;
 
-
-/***/ }),
-
-/***/ 1072:
-/***/ ((module) => {
-
-"use strict";
-
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var converters = module.exports = {};
-
-var generateHeader = function generateHeader(repeat) {
-    return function (input, json2md) {
-        return "#".repeat(repeat) + " " + json2md(input);
-    };
-};
-
-var indent = function indent(content, spaces, ignoreFirst) {
-    var lines = content;
-
-    if (typeof content === "string") {
-        lines = content.split("\n");
-    }
-
-    if (ignoreFirst) {
-        if (lines.length <= 1) {
-            return lines.join("\n");
-        }
-        return lines[0] + "\n" + indent(lines.slice(1), spaces, false);
-    }
-
-    return lines.map(function (c) {
-        return " ".repeat(spaces) + c;
-    }).join("\n");
-};
-
-var parseTextFormat = function parseTextFormat(text) {
-
-    var formats = {
-        strong: "**",
-        italic: "*",
-        underline: "_",
-        strikethrough: "~~"
-    };
-
-    return text.replace(/<\/?strong\>/gi, formats.strong).replace(/<\/?bold\>/gi, formats.strong).replace(/<\/?em\>/gi, formats.italic).replace(/<\/?italic\>/gi, formats.italic).replace(/<\/?u\>/gi, formats.underline).replace(/<\/?strike\>/gi, formats.strikethrough);
-};
-
-// Headings
-converters.h1 = generateHeader(1);
-converters.h2 = generateHeader(2);
-converters.h3 = generateHeader(3);
-converters.h4 = generateHeader(4);
-converters.h5 = generateHeader(5);
-converters.h6 = generateHeader(6);
-
-converters.blockquote = function (input, json2md) {
-    return json2md(input, "> ");
-};
-
-converters.img = function (input, json2md) {
-    if (Array.isArray(input)) {
-        return json2md(input, "", "img");
-    }
-    if (typeof input === "string") {
-        return converters.img({ source: input, title: "", alt: "" });
-    }
-    input.title = input.title || "";
-    input.alt = input.alt || "";
-    return "![" + input.alt + "](" + input.source + " \"" + input.title + "\")";
-};
-
-converters.ul = function (input, json2md) {
-    var c = "";
-    for (var i = 0; i < input.length; ++i) {
-        var marker = "";
-
-        var type = Object.keys(input[i])[0];
-        if (type !== "ul" && type !== "ol" && type !== 'taskLists') {
-            marker += "\n - ";
-        }
-
-        c += marker + parseTextFormat(indent(json2md(input[i]), 4, true));
-    }
-    return c;
-};
-
-converters.ol = function (input, json2md) {
-    var c = "";
-    var jumpCount = 0;
-    for (var i = 0; i < input.length; ++i) {
-        var marker = "";
-        var type = Object.keys(input[i])[0];
-        if (type !== "ul" && type !== "ol" && type !== 'taskLists') {
-            marker = "\n " + (i + 1 - jumpCount) + ". ";
-        } else {
-            jumpCount++;
-        }
-
-        c += marker + parseTextFormat(indent(json2md(input[i]), 4, true));
-    }
-    return c;
-};
-
-converters.taskLists = function (input, json2md) {
-    var c = "";
-    for (var i = 0; i < input.length; ++i) {
-        var marker = "";
-
-        var type = Object.keys(input[i])[0];
-        if (type !== "ul" && type !== "ol" && type !== 'taskLists') {
-            marker += input[i].isDone ? "\n - [x] " : "\n - [ ] ";
-        }
-
-        c += marker + parseTextFormat(indent(json2md(input[i].title || input[i]), 4, true));
-    }
-    return c;
-};
-
-converters.code = function (input, json2md) {
-    var c = "```" + (input.language || "") + "\n";
-    if (Array.isArray(input.content)) {
-        c += input.content.join("\n");
-    } else {
-        c += input.content;
-    }
-    c += "\n```";
-    return c;
-};
-
-converters.p = function (input, json2md) {
-    return parseTextFormat(json2md(input, "\n"));
-};
-
-converters.table = function (input, json2md) {
-    var _PREFERRED_LENGTH_PER;
-
-    var ALIGNMENT = {
-        CENTER: 'center',
-        RIGHT: 'right',
-        LEFT: 'left',
-        NONE: 'none'
-    };
-
-    var PREFERRED_LENGTH_PER_ALIGNMENT = (_PREFERRED_LENGTH_PER = {}, _defineProperty(_PREFERRED_LENGTH_PER, ALIGNMENT.CENTER, 3), _defineProperty(_PREFERRED_LENGTH_PER, ALIGNMENT.RIGHT, 2), _defineProperty(_PREFERRED_LENGTH_PER, ALIGNMENT.LEFT, 2), _defineProperty(_PREFERRED_LENGTH_PER, ALIGNMENT.NONE, 1), _PREFERRED_LENGTH_PER);
-
-    if ((typeof input === "undefined" ? "undefined" : _typeof(input)) !== "object" || !input.hasOwnProperty("headers") || !input.hasOwnProperty("rows")) {
-        return "";
-    }
-
-    var alignment = input.headers.map(function (_, index) {
-        return input.aligns && input.aligns[index] ? input.aligns[index] : ALIGNMENT.NONE;
-    });
-
-    // try to match the space the column name and the dashes (and colons) take up. Minimum depends on alignment
-    var preferred_lengths = input.headers.map(function (header, index) {
-        return Math.max(PREFERRED_LENGTH_PER_ALIGNMENT[alignment[index]], header.length - 2);
-    });
-
-    if (input.pretty === true) {
-        // update preferred_lengths considering rows' cells length
-        input.rows.forEach(function (row) {
-            (Array.isArray(row) ? row : input.headers.map(function (col_id) {
-                return row[col_id];
-            })).forEach(function (cell, index) {
-                preferred_lengths[index] = Math.max(preferred_lengths[index], cell.length - 2);
-            });
-        });
-    }
-
-    var fill_right = function fill_right(diff, header) {
-        return " ".repeat(diff) + header;
-    };
-    var fill_left = function fill_left(diff, header) {
-        return header + " ".repeat(diff);
-    };
-    var fill_center = function fill_center(diff, header) {
-        return " ".repeat(Math.floor(diff / 2)) + header + " ".repeat(Math.ceil(diff / 2));
-    };
-
-    var fill_th = function fill_th(header, index) {
-        var diff = preferred_lengths[index] + 2 - header.length;
-        switch (alignment[index]) {
-            case ALIGNMENT.RIGHT:
-                return fill_right(diff, header);
-            case ALIGNMENT.LEFT:
-                return fill_left(diff, header);
-            case ALIGNMENT.CENTER:
-            case ALIGNMENT.NONE:
-            default:
-                return fill_center(diff, header);
-        }
-    };
-
-    var fill_td = function fill_td(header, index) {
-        var diff = preferred_lengths[index] + 2 - header.length;
-        switch (alignment[index]) {
-            case ALIGNMENT.RIGHT:
-                return fill_right(diff, header);
-            case ALIGNMENT.NONE:
-            case ALIGNMENT.LEFT:
-                return fill_left(diff, header);
-            case ALIGNMENT.CENTER:
-            default:
-                return fill_center(diff, header);
-        }
-    };
-
-    // add spaces around column name if necessary (side(s) depends on alignment)
-    var column_names = input.headers.map(fill_th);
-
-    var header = "| " + column_names.join(" | ") + " |";
-
-    var spaces = "| " + input.headers.map(function (_, index) {
-        var inner = "-".repeat(preferred_lengths[index]);
-        switch (alignment[index]) {
-            case ALIGNMENT.CENTER:
-                return ":" + inner + ":";
-            case ALIGNMENT.RIGHT:
-                return "-" + inner + ":";
-            case ALIGNMENT.LEFT:
-                return ":" + inner + "-";
-            case ALIGNMENT.NONE:
-            default:
-                return "-" + inner + "-";
-        }
-    }).join(" | ") + " |";
-
-    var fill_tbody_cell = function fill_tbody_cell(cell, index) {
-        if (input.pretty !== true) return cell;
-        return fill_td(cell, index);
-    };
-
-    var data = input.rows.map(function (row) {
-        return "| " + (Array.isArray(row) ? row : input.headers.map(function (col_id) {
-            return row[col_id];
-        })).map(function (cell) {
-            return json2md(cell);
-        }).map(function (cell) {
-            return parseTextFormat(cell);
-        }).map(function (cell) {
-            return cell.replace(/([^\\])\|/, "$1\\|");
-        }).map(function (cell) {
-            return cell.trim();
-        }).map(fill_tbody_cell).join(" | ") + " |";
-    }).join("\n");
-
-    return [header, spaces, data].join("\n");
-};
-
-converters.link = function (input, json2md) {
-    if (Array.isArray(input)) {
-        return json2md(input, "", "link");
-    }
-    if (typeof input === "string") {
-        return converters.link({ source: input, title: "" });
-    }
-    return "[" + input.title + "](" + input.source + ")";
-};
-
-converters.hr = function (input, json2md) {
-    return '---';
-};
-
-/***/ }),
-
-/***/ 8158:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-var converters = __nccwpck_require__(1072),
-    indento = __nccwpck_require__(393);
-
-/**
- * json2md
- * Converts a JSON input to markdown.
- *
- * **Supported elements**
- *
- * | Type         | Element            | Data                                                                                                                     | Example                                                                                                                                          |
- * |--------------|--------------------|--------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
- * | `h1`         | Heading 1          | The heading text as string.                                                                                              | `{ h1: "heading 1" }`                                                                                                                            |
- * | `h2`         | Heading 2          | The heading text as string.                                                                                              | `{ h2: "heading 2" }`                                                                                                                            |
- * | `h3`         | Heading 3          | The heading text as string.                                                                                              | `{ h3: "heading 3" }`                                                                                                                            |
- * | `h4`         | Heading 4          | The heading text as string.                                                                                              | `{ h4: "heading 4" }`                                                                                                                            |
- * | `h5`         | Heading 5          | The heading text as string.                                                                                              | `{ h5: "heading 5" }`                                                                                                                            |
- * | `h6`         | Heading 6          | The heading text as string.                                                                                              | `{ h6: "heading 6" }`                                                                                                                            |
- * | `p`          | Paragraphs         | The paragraph text as string or array (multiple paragraphs).                                                             | `{ p: "Hello World"}` or multiple paragraphs: `{ p: ["Hello", "World"] }`                                                                        |
- * | `blockquote` | Blockquote         | The blockquote as string or array (multiple blockquotes)                                                                 | `{ blockquote: "Hello World"}` or multiple blockquotes: `{ blockquote: ["Hello", "World"] }`                                                     |
- * | `img`        | Image              | An object or an array of objects containing the `title`, `source` and `alt`  fields.                                     | `{ img: { title: "My image title", source: "http://example.com/image.png", alt: "My image alt" } }`                                              |
- * | `ul`         | Unordered list     | An array of strings or lists representing the items.                                                                     | `{ ul: ["item 1", "item 2"] }`                                                                                                                   |
- * | `ol`         | Ordered list       | An array of strings or lists representing the items.                                                                     | `{ ol: ["item 1", "item 2"] }`                                                                                                                   |
- * | `hr`         | Separator          | None                                                                                                                     | `{ hr: "" }`                                                                                                                                     |
- * | `code`       | Code block element | An object containing the `language` (`String`) and `content` (`Array` or `String`)  fields.                              | `{ code: { "language": "html", "content": "<script src='dummy.js'></script>" } }`                                                                |
- * | `table`      | Table              | An object containing the `headers` (`Array` of `String`s) and `rows` (`Array` of `Array`s or `Object`s).                 | `{ table: { headers: ["a", "b"], rows: [{ a: "col1", b: "col2" }] } }` or `{ table: { headers: ["a", "b"], rows: [["col1", "col2"]] } }`         |
- * | `link`       | Link               | An object containing the `title` and the `source` fields.                                                                | `{ title: 'hello', source: 'https://ionicabizau.net' }`                                                                                          |
- *
- *
- * You can extend the `json2md.converters` object to support your custom types.
- *
- * ```js
- * json2md.converters.sayHello = function (input, json2md) {
- *    return "Hello " + input + "!"
- * }
- * ```
- *
- * Then you can use it:
- *
- * ```js
- * json2md({ sayHello: "World" })
- * // => "Hello World!"
- * ```
- *
- * @name json2md
- * @function
- * @param {Array|Object|String} data The input JSON data.
- * @param {String} prefix A snippet to add before each line.
- * @return {String} The generated markdown result.
- */
-function json2md(data, prefix, _type) {
-    prefix = prefix || "";
-    if (typeof data === "string" || typeof data === "number") {
-        return indento(data, 1, prefix);
-    }
-
-    var content = [];
-
-    // Handle arrays
-    if (Array.isArray(data)) {
-        for (var i = 0; i < data.length; ++i) {
-            content.push(indento(json2md(data[i], "", _type), 1, prefix));
-        }
-        return content.join("\n");
-    } else {
-        var mdText = "";
-        Object.keys(data).forEach(function (type, index, array) {
-            var func = converters[_type || type];
-
-            if (typeof func === "function") {
-                mdText += indento(func(_type ? data : data[type], json2md), 1, prefix) + "\n";
-            } else {
-                throw new Error("There is no such converter: " + type);
-            }
-        });
-        return mdText;
-    }
-}
-
-/**
- * @param {Array|Object|String} data The input JSON data.
- * @param {String} prefix A snippet to add before each line.
- * @return {Promise.<String, Error>} The generated markdown result.
- */
-json2md.async = function (data, prefix, _type) {
-    return Promise.resolve().then(function () {
-        prefix = prefix || "";
-        if (typeof data === "string" || typeof data === "number") {
-            return indento(data, 1, prefix);
-        }
-
-        var content = [];
-
-        // Handle arrays
-        if (Array.isArray(data)) {
-            var promises = data.map(function (d, index) {
-                return Promise.resolve().then(function () {
-                    return json2md.async(d, "", _type);
-                }).then(function (result) {
-                    return indento(result, 1, prefix);
-                }).then(function (result) {
-                    content[index] = result;
-                });
-            });
-            return Promise.all(promises).then(function () {
-                return content.join("\n");
-            });
-        } else {
-            var type = Object.keys(data)[0],
-                func = converters[_type || type];
-
-            if (typeof func === "function") {
-                return Promise.resolve().then(function () {
-                    return func(_type ? data : data[type], json2md);
-                }).then(function (result) {
-                    return indento(result, 1, prefix) + "\n";
-                });
-            }
-            throw new Error("There is no such converter: " + type);
-        }
-    });
-};
-
-json2md.converters = converters;
-
-module.exports = json2md;
 
 /***/ }),
 
@@ -10120,69 +9686,118 @@ var __webpack_exports__ = {};
 (() => {
 const github = __nccwpck_require__(5438);
 const core = __nccwpck_require__(2186);
-const dayjs = __nccwpck_require__(7401);
-const json2md = __nccwpck_require__(8158);
 
-async function run() {
-  const token = core.getInput("token", { required: true });
-  const repo = core.getInput("repository", { required: true });
-  const owner = core.getInput("owner", { required: true });
-  const base_branch = core.getInput("base_branch", { required: true });
-  const base_branch_pr_title = core.getInput("base_branch_pr_title", {
-    required: true,
-  });
-  const feature_branch = core.getInput("feature_branch", { required: true });
-  const pr_state = core.getInput("pr_state", { required: true });
+const run = async () => {
+  const githubToken = core.getInput("github_token", { required: true });
+  const prTitle = core.getInput("pr_title");
+  const prBody = core.getInput("pr_body");
+  const prReviewers = core.getInput("pr_reviewers");
+  const teamReviewers = core.getInput("pr_team_reviewers");
+  const baseBranch = core.getInput("destination_branch");
+  const sourceBranch = github.context.ref.replace(/^refs\/heads\//, "");
 
-  const octokit = new github.getOctokit(token);
+  const credentials = {
+    owner: github.context.repo.owner,
+    repo: github.context.repo.repo,
+  };
 
-  const mainPulls = await octokit.rest.pulls.list({
-    owner,
-    repo,
-    state: pr_state,
-    base: base_branch,
-    per_page: 3,
-  });
-
-  const lastPromotedPR = mainPulls.data.find(
-    (pr) => pr.title === base_branch_pr_title
+  const octokit = github.getOctokit(githubToken);
+  core.info(
+    `Looking up a pull request with a source branch "${
+      sourceBranch || "<not found>"
+    }" and a base branch "${baseBranch || "<not specified>"}"`
   );
 
-  const homologPulls = await octokit.rest.pulls.list({
-    owner,
-    repo,
-    state: pr_state,
-    base: feature_branch,
-    per_page: 10,
+  const branchHead = `${credentials.owner}:${sourceBranch}`;
+  const { data: pulls } = await octokit.rest.pulls.list({
+    ...credentials,
+    base: baseBranch,
+    head: branchHead,
   });
 
-  const prsToPromote = homologPulls.data.filter((pull) =>
-    dayjs(pull.merged_at).isAfter(dayjs(lastPromotedPR.merged_at))
+  if (pulls.length === 0) {
+    throw new Error(
+      `No pull request found for a source branch "${
+        sourceBranch || "<not found>"
+      }" and a base branch "${baseBranch || "<not specified>"}"`
+    );
+  }
+
+  const pullRequest = pulls.find((p) => p.state === "open");
+  if (pullRequest == null) {
+    throw new Error(
+      `No open pull requests found for a source branch "${
+        sourceBranch || "<not found>"
+      }" and a base branch "${baseBranch || "<not specified>"}"`
+    );
+  }
+
+  const {
+    number: pullNumber,
+    base: { ref: pullRequestTargetBranch },
+  } = pullRequest;
+  core.info(
+    `Pull request #${pullNumber} has been found for  a source branch "${
+      sourceBranch || "<not found>"
+    }" and a base branch "${baseBranch || "<not specified>"}"`
   );
-  const authors = prsToPromote.map((pr) => pr.user.login);
-  const changelog = prsToPromote.map((pr) => pr.title);
 
-  const output = [
-    {
-      p: `*Deploy de \`${feature_branch}\` para \`${base_branch}\` no repo: ${repo}*`,
-    },
-    { p: "*Features*" },
-    {
-      ul: changelog,
-    },
-    { p: "*Necessária a aprovação de:*" },
-    {
-      ul: authors,
-    },
-  ];
+  const params = {
+    ...credentials,
+    pull_number: pullNumber,
+  };
 
-  core.setOutput("message", json2md(output));
-  core.setOutput("changelog", changelog);
-  core.setOutput("authors", authors);
-  return { output: json2md(output), authors, changelog };
-}
+  if (prTitle) {
+    core.info(
+      `Pull request #${pullNumber}'s title will be set to "${prTitle}"`
+    );
+    params.title = prTitle;
+  }
 
-run();
+  if (prBody) {
+    core.info(`Pull request #${pullNumber}'s body will be set to "${prBody}"`);
+    params.body = prBody;
+  }
+
+  if (baseBranch && baseBranch !== pullRequestTargetBranch) {
+    core.info(
+      `Pull request #${pullNumber}'s base branch will be set to "${baseBranch}"`
+    );
+    params.title = prTitle;
+  }
+
+  const url = `/repos/${credentials.owner}/${credentials.repo}/pulls/${pullNumber}`;
+
+  core.info(
+    `Making a PATCH request to "${url}" with params "${JSON.stringify(params)}"`
+  );
+  await octokit.request(`PATCH ${url}`, params);
+
+  if (prReviewers) {
+    core.info(
+      `Pull request #${pullNumber}'s reviewers will be set to "${prReviewers}"`
+    );
+    params.reviewers = prReviewers;
+    params.team = teamReviewers || [];
+    await octokit.request(`POST ${url}/requested_reviewers`, params);
+  }
+};
+
+// Github boolean inputs are strings https://github.com/actions/runner/issues/1483
+const failOnError = core.getInput("fail_on_error") == "true";
+
+run()
+  .then(() => {
+    core.info("Done.");
+  })
+  .catch((e) => {
+    core.error("Cannot update the pull request.");
+    if (failOnError) {
+      core.setFailed(e.stack || e.message);
+    } else {
+      core.error(e.stack || e.message);
+    }
+  });
 
 })();
 

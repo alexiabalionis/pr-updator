@@ -1,43 +1,32 @@
-name: "Branchlog2"
-description: "Creates a changelog between two branches"
-author: "Aléxia Balionis"
-branding:
-  icon: "git-merge"
-  color: "purple"
-inputs:
-  token: # id of input
-    description: "Access token"
-    required: true
-  repository:
-    description: "Name of the repo to search into"
-    required: true
-  owner:
-    description: "Name of the organization the repo belongs to"
-    default: "olxbr"
-    required: true
-  base_branch:
-    description: "Branch which the PR is going into. ie: main"
-    default: "main"
-    required: true
-  base_branch_pr_title:
-    description: "Action will get all PRs merged after this one"
-    default: "Promote homolog to production"
-    required: true
-  feature_branch:
-    description: "Branch that contains feature requests to be merged. ie: homolog"
-    default: "homolog"
-    required: true
-  pr_state:
-    description: "Search for PRs in which state: open, closed, merged"
-    default: "closed"
-    required: true
-outputs:
-  message: # output will be available to future steps
-    description: "List of received PRs"
-  changelog:
-    description: "list of PRs titles"
-  authors:
-    description: "authors of PRs"
+name: "Update Pull Request details"
+description: "GitHub Action that updates the pull request description and title"
+author: "Alexia Balionis"
 runs:
   using: "node16"
-  main: "dist/index.js"
+  main: "index.js"
+inputs:
+  github_token:
+    description: "The GITHUB_TOKEN secret"
+    required: true
+  pr_title:
+    description: "The title of the PR"
+    default: ""
+  pr_body:
+    description: "The body of the PR"
+    default: ""
+  destination_branch:
+    description: "Base branch of the PR. Default is master."
+    default: master
+  pr_reviewers:
+    description: "Array of usernames that will be set to be PR reviewers"
+    default: master
+  pr_team_reviewers:
+    description: "Array of team slugs that will be set to be PR reviewers"
+    default: master
+  fail_on_error:
+    description: "Raise an exception and mark the action as failed in case of error"
+    default: "true"
+    required: false
+branding:
+  icon: git-pull-request
+  color: green

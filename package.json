@@ -1,5 +1,5 @@
 {
-  "name": "branchlog",
+  "name": "PR-details-update",
   "version": "1.1.2",
   "description": "Creates a changelog between two branches",
   "main": "index.js",
@@ -9,15 +9,14 @@
     "all": "npm run lint && npm run prepare"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/olxbr/count-prs-action.git"
+    "type": "git"
   },
   "keywords": [
     "GitHub",
     "Actions",
     "JavaScript"
   ],
-  "author": "abalioni",
+  "author": "alexiabalionis",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/olxbr/count-prs-action/issues"

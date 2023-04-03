@@ -1,65 +1,114 @@
 const github = require("@actions/github");
 const core = require("@actions/core");
-const dayjs = require("dayjs");
-const json2md = require("json2md");
 
-async function run() {
-  const token = core.getInput("token", { required: true });
-  const repo = core.getInput("repository", { required: true });
-  const owner = core.getInput("owner", { required: true });
-  const base_branch = core.getInput("base_branch", { required: true });
-  const base_branch_pr_title = core.getInput("base_branch_pr_title", {
-    required: true,
-  });
-  const feature_branch = core.getInput("feature_branch", { required: true });
-  const pr_state = core.getInput("pr_state", { required: true });
+const run = async () => {
+  const githubToken = core.getInput("github_token", { required: true });
+  const prTitle = core.getInput("pr_title");
+  const prBody = core.getInput("pr_body");
+  const prReviewers = core.getInput("pr_reviewers");
+  const teamReviewers = core.getInput("pr_team_reviewers");
+  const baseBranch = core.getInput("destination_branch");
+  const sourceBranch = github.context.ref.replace(/^refs\/heads\//, "");
 
-  const octokit = new github.getOctokit(token);
+  const credentials = {
+    owner: github.context.repo.owner,
+    repo: github.context.repo.repo,
+  };
 
-  const mainPulls = await octokit.rest.pulls.list({
-    owner,
-    repo,
-    state: pr_state,
-    base: base_branch,
-    per_page: 3,
-  });
-
-  const lastPromotedPR = mainPulls.data.find(
-    (pr) => pr.title === base_branch_pr_title
+  const octokit = github.getOctokit(githubToken);
+  core.info(
+    `Looking up a pull request with a source branch "${
+      sourceBranch || "<not found>"
+    }" and a base branch "${baseBranch || "<not specified>"}"`
   );
 
-  const homologPulls = await octokit.rest.pulls.list({
-    owner,
-    repo,
-    state: pr_state,
-    base: feature_branch,
-    per_page: 10,
+  const branchHead = `${credentials.owner}:${sourceBranch}`;
+  const { data: pulls } = await octokit.rest.pulls.list({
+    ...credentials,
+    base: baseBranch,
+    head: branchHead,
   });
 
-  const prsToPromote = homologPulls.data.filter((pull) =>
-    dayjs(pull.merged_at).isAfter(dayjs(lastPromotedPR.merged_at))
+  if (pulls.length === 0) {
+    throw new Error(
+      `No pull request found for a source branch "${
+        sourceBranch || "<not found>"
+      }" and a base branch "${baseBranch || "<not specified>"}"`
+    );
+  }
+
+  const pullRequest = pulls.find((p) => p.state === "open");
+  if (pullRequest == null) {
+    throw new Error(
+      `No open pull requests found for a source branch "${
+        sourceBranch || "<not found>"
+      }" and a base branch "${baseBranch || "<not specified>"}"`
+    );
+  }
+
+  const {
+    number: pullNumber,
+    base: { ref: pullRequestTargetBranch },
+  } = pullRequest;
+  core.info(
+    `Pull request #${pullNumber} has been found for  a source branch "${
+      sourceBranch || "<not found>"
+    }" and a base branch "${baseBranch || "<not specified>"}"`
   );
-  const authors = prsToPromote.map((pr) => pr.user.login);
-  const changelog = prsToPromote.map((pr) => pr.title);
 
-  const output = [
-    {
-      p: `*Deploy de \`${feature_branch}\` para \`${base_branch}\` no repo: ${repo}*`,
-    },
-    { p: "*Features*" },
-    {
-      ul: changelog,
-    },
-    { p: "*Necessária a aprovação de:*" },
-    {
-      ul: authors,
-    },
-  ];
+  const params = {
+    ...credentials,
+    pull_number: pullNumber,
+  };
 
-  core.setOutput("message", json2md(output));
-  core.setOutput("changelog", changelog);
-  core.setOutput("authors", authors);
-  return { output: json2md(output), authors, changelog };
-}
+  if (prTitle) {
+    core.info(
+      `Pull request #${pullNumber}'s title will be set to "${prTitle}"`
+    );
+    params.title = prTitle;
+  }
 
-run();
+  if (prBody) {
+    core.info(`Pull request #${pullNumber}'s body will be set to "${prBody}"`);
+    params.body = prBody;
+  }
+
+  if (baseBranch && baseBranch !== pullRequestTargetBranch) {
+    core.info(
+      `Pull request #${pullNumber}'s base branch will be set to "${baseBranch}"`
+    );
+    params.title = prTitle;
+  }
+
+  const url = `/repos/${credentials.owner}/${credentials.repo}/pulls/${pullNumber}`;
+
+  core.info(
+    `Making a PATCH request to "${url}" with params "${JSON.stringify(params)}"`
+  );
+  await octokit.request(`PATCH ${url}`, params);
+
+  if (prReviewers) {
+    core.info(
+      `Pull request #${pullNumber}'s reviewers will be set to "${prReviewers}"`
+    );
+    params.reviewers = prReviewers;
+    params.team = teamReviewers || [];
+    await octokit.request(`POST ${url}/requested_reviewers`, params);
+  }
+};
+
+// Github boolean inputs are strings https://github.com/actions/runner/issues/1483
+const failOnError = core.getInput("fail_on_error") == "true";
+
+run()
+  .then(() => {
+    core.info("Done.");
+  })
+  .catch((e) => {
+    core.error("Cannot update the pull request.");
+    if (failOnError) {
+      core.setFailed(e.stack || e.message);
+    } else {
+      core.error(e.stack || e.message);
+    }
+  });
